@@ -1,28 +1,45 @@
+import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { useState, useEffect } from 'react';
 import { LogOut, Key, Target, Award, Package, Star, Heart } from 'lucide-react';
 
 export default function Account() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isEditingSkin, setIsEditingSkin] = useState(false);
   const [skinIssues, setSkinIssues] = useState<string[]>(['Mụn']);
+  
+  const [loginId, setLoginId] = useState('');
+  const [loginPass, setLoginPassword] = useState('');
   
   const allIssues = ['Mụn', 'Nám/Tàn nhang', 'Thâm', 'Lão hóa', 'Nhạy cảm', 'Sẹo', 'Lỗ chân lông'];
 
   useEffect(() => {
     setIsLoggedIn(localStorage.getItem('beaute_loggedin') === '1');
+    setIsAdmin(localStorage.getItem('beaute_isadmin') === '1');
     const savedSkin = JSON.parse(localStorage.getItem('beaute_skin') || '["Mụn"]');
     setSkinIssues(savedSkin);
   }, []);
 
   const handleLogin = () => {
+    if (loginId === 'thaild' && loginPass === 'M8nchester') {
+      localStorage.setItem('beaute_isadmin', '1');
+      setIsAdmin(true);
+    } else {
+      localStorage.setItem('beaute_isadmin', '0');
+      setIsAdmin(false);
+    }
     localStorage.setItem('beaute_loggedin', '1');
+    localStorage.setItem('beaute_username', loginId);
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('beaute_loggedin');
+    localStorage.removeItem('beaute_isadmin');
+    localStorage.removeItem('beaute_username');
     setIsLoggedIn(false);
+    setIsAdmin(false);
   };
 
   const toggleSkinTag = (tag: string) => {
@@ -49,11 +66,22 @@ export default function Account() {
             <div className="flex flex-col gap-5">
               <div className="flex flex-col gap-2">
                 <label className="text-[10px] font-bold text-text-light uppercase tracking-widest ml-1">Số điện thoại / Email</label>
-                <input className="w-full bg-bg border border-black/5 rounded-2xl p-4 text-[15px] font-medium outline-none focus:border-rose/30 transition-all" placeholder="091x xxx xxx" />
+                <input 
+                  value={loginId}
+                  onChange={(e) => setLoginId(e.target.value)}
+                  className="w-full bg-bg border border-black/5 rounded-2xl p-4 text-[15px] font-medium outline-none focus:border-rose/30 transition-all" 
+                  placeholder="thaild" 
+                />
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-[10px] font-bold text-text-light uppercase tracking-widest ml-1">Mật khẩu</label>
-                <input className="w-full bg-bg border border-black/5 rounded-2xl p-4 text-[15px] font-medium outline-none focus:border-rose/30 transition-all" type="password" placeholder="••••••••" />
+                <input 
+                  value={loginPass}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  className="w-full bg-bg border border-black/5 rounded-2xl p-4 text-[15px] font-medium outline-none focus:border-rose/30 transition-all" 
+                  type="password" 
+                  placeholder="••••••••" 
+                />
               </div>
               <button 
                 onClick={handleLogin}
@@ -72,12 +100,17 @@ export default function Account() {
             <div className="card shadow-sm p-6">
               <div className="flex items-center gap-5">
                 <div className="w-20 h-20 rounded-[28px] bg-gradient-to-br from-rose to-rose-dark flex items-center justify-center font-serif text-[32px] font-bold text-white shadow-lg shadow-rose/20">
-                  N
+                  {localStorage.getItem('beaute_username')?.charAt(0).toUpperCase() || 'N'}
                 </div>
-                <div>
-                  <div className="font-serif text-[24px] font-bold text-text leading-tight">Nguyễn Thị Lan</div>
+                <div className="flex-1">
+                  <div className="font-serif text-[24px] font-bold text-text leading-tight">{localStorage.getItem('beaute_username') || 'Nguyễn Thị Lan'}</div>
                   <div className="text-[12px] text-text-light font-bold mt-1 opacity-70 tracking-wide">Thành viên từ 01.2025</div>
                 </div>
+                {isAdmin && (
+                  <Link to="/admin/products" className="bg-text text-white px-4 py-2 rounded-xl text-[12px] font-bold shadow-md active:scale-95 transition-all">
+                    QUẢN TRỊ
+                  </Link>
+                )}
               </div>
             </div>
 

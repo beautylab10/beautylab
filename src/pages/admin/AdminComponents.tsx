@@ -78,6 +78,7 @@ export const AdminLayout: React.FC<{ title: string; children: React.ReactNode; p
           {primaryAction}
         </div>
         <div className="flex gap-4 overflow-x-auto no-scrollbar mb-8 pb-1">
+          <Link to="/admin/products" className="flex-shrink-0 px-5 py-2.5 rounded-full text-[13px] font-bold transition-all border border-black/5 bg-white text-text-mid hover:border-black/20">Sản phẩm</Link>
           <Link to="/admin/articles" className="flex-shrink-0 px-5 py-2.5 rounded-full text-[13px] font-bold transition-all border border-black/5 bg-white text-text-mid hover:border-black/20">Bài chia sẻ</Link>
           <Link to="/admin/authors" className="flex-shrink-0 px-5 py-2.5 rounded-full text-[13px] font-bold transition-all border border-black/5 bg-white text-text-mid hover:border-black/20">Người viết bài</Link>
           <Link to="/admin/concerns" className="flex-shrink-0 px-5 py-2.5 rounded-full text-[13px] font-bold transition-all border border-black/5 bg-white text-text-mid hover:border-black/20">Vấn đề da</Link>

@@ -15,6 +15,16 @@ export interface Product {
   suitableSkinTypes?: string[];
   unsuitableSkinTypes?: string[];
   skinConcerns?: string[];
+  details?: {
+    importPrice?: number;
+    sellingPrice?: number;
+    costPrice?: number;
+    weight?: string;
+    usage?: string;
+    description?: string;
+    strength?: string;
+    daysToUse?: number;
+  };
 }
 
 export interface Article {

@@ -11,6 +11,7 @@ import ArticleDetails from './pages/ArticleDetails';
 import Account from './pages/Account';
 import AdminArticles from './pages/admin/AdminArticles';
 import AdminArticleForm from './pages/admin/AdminArticleForm';
+import AdminProducts from './pages/admin/AdminProducts';
 import AdminAuthors from './pages/admin/AdminAuthors';
 import AdminSkinConcerns from './pages/admin/AdminSkinConcerns';
 import AdminSkinTypes from './pages/admin/AdminSkinTypes';
@@ -39,6 +40,7 @@ export default function App() {
         <Route path="/account" element={<Account />} />
         
         {/* Admin Routes */}
+        <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/admin/articles" element={<AdminArticles />} />
         <Route path="/admin/article/new" element={<AdminArticleForm />} />
         <Route path="/admin/article/edit/:id" element={<AdminArticleForm />} />
