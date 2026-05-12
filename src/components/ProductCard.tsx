@@ -7,6 +7,7 @@ import { INITIAL_SKIN_CONCERNS } from '../data';
 interface ProductCardProps {
   product: Product;
   type?: 'flash' | 'simple' | 'category';
+  key?: React.Key;
 }
 
 export default function ProductCard({ product, type = 'simple' }: ProductCardProps) {
